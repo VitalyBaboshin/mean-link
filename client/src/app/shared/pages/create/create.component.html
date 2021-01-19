@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col s8 offset-s2" style="padding-top: 2rem">
+      <div>
+        <input
+          placeholder="Вставьте ссылку"
+          id="link"
+          type="text"
+          [(ngModel)]="link"
+          (keyup.enter)="enter($event)"
+        />
+        <label For="link">Введите ссылку</label>
+      </div>
+    </div>
+  </div>
+</div>

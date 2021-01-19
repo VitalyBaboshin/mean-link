@@ -1,0 +1,15 @@
+<div class="container">
+  <div *ngIf="link$ | async as link; else loading">
+    <p>Ссылка</p>
+    <p>Ваша ссылка: <a href={{link.to}} target="_blank" rel="noopener noreferrer">{{link.to}}</a></p>
+    <p>Откуда: <a href={{link.from}} target="_blank" rel="noopener noreferrer">{{link.from}}</a></p>
+    <p>Количесвто кликов по ссылке: <strong>{{link.clicks}}</strong></p>
+    <p>Дата создания: <strong>{{link.date | date}}</strong></p>
+  </div>
+
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
+
+

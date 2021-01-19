@@ -1,0 +1,16 @@
+<nav>
+  <div class="nav-wrapper blue darken-1" style="padding: 0 2rem">
+    <span class="brand-logo">Сокращение ссылок</span>
+    <ul id="nav-mobile" class="right">
+      <li routerLinkActive="active">
+        <a routerLink="/create">Создать</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/links">Ссылки</a>
+      </li>
+      <li>
+        <a (click)="logOut()" routerLink="/">Выйти</a>
+      </li>
+    </ul>
+  </div>
+</nav>
