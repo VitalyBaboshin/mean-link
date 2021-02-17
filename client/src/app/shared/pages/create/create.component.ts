@@ -3,6 +3,7 @@ import {HttpService} from "../../../services/http.service";
 import {Subscription} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {AuthServices} from "../../../services/auth.services";
 
 
 @Component({
@@ -14,11 +15,12 @@ import {Router} from "@angular/router";
 export class CreateComponent{
   @Input() link: string;
   constructor(public httpLink: HttpService,
-              public router: Router) { }
+              public router: Router,
+              public auth: AuthServices) { }
 
   enter($event: any) {
     this.httpLink.create(this.link).subscribe( req => {
-      this.router.navigate([`/detail/${req.link._id}`])
+        this.router.navigate([`/detail/${req.link._id}`])
     })
   }
 

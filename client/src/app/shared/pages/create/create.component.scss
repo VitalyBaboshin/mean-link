@@ -1,0 +1,12 @@
+.center {
+  display: flex;
+  justify-content: space-evenly;
+}
+@media (max-width: 600px) {
+  .center {
+    display: block;
+  }
+  a.btn {
+    margin-top: 20px;
+  }
+}

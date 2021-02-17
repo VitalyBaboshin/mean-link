@@ -5,9 +5,10 @@ const Link = require('../models/Link');
 const auth = require('../middleware/auth.middleware')
 const router = Router();
 
-router.post('/generate',auth, async (req, res) => {
+router.post('/generate',auth , async (req, res) => {
     try {
         const baseUrl = config.get('baseUrl');
+        console.log(baseUrl)
         const {from} = req.body;
         const code = shortid.generate();
         const existing = await Link.findOne({from});
@@ -24,7 +25,6 @@ router.post('/generate',auth, async (req, res) => {
         } catch (e) {
             console.log(e._message)
         }
-
         res.status(201).json({ link })
 
     } catch (e) {
@@ -41,6 +41,7 @@ router.get('/', auth, async (req, res) => {
         res.status(500).json({message: 'Internal server error !!'})
     }
 })
+
 router.get('/:id', auth, async (req, res) => {
     try {
         const link = await Link.findById(req.params.id); //??
@@ -48,6 +49,24 @@ router.get('/:id', auth, async (req, res) => {
     } catch (e) {
         //Внутренняя ошибка сервера
         res.status(500).json({message: 'Internal server error !!'})
+    }
+})
+
+router.delete('/:id', auth, async (req, res) => {
+    const link = await Link.findById(req.params.id)
+    const from = link.from;
+    const id = req.params.id;
+    try {
+        await Link.deleteMany({_id:id}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            console.log(result);
+        });
+        res.status(201).json({message: `Ссылка ${from} удалена` })
+    } catch (e) {
+        //Внутренняя ошибка сервера
+        res.status(500).json({message: 'Internal server error !!Not delete'})
     }
 })
 module.exports = router

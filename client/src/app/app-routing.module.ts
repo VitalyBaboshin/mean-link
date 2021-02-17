@@ -11,10 +11,10 @@ const routes: Routes = [
 
   {path: '', redirectTo: "/auth", pathMatch: 'full'},
   {path: '', children: [
-      {path: 'auth', component: AuthComponent},
-      {path: 'create', component: CreateComponent,canActivate: [AuthGuard]},
-      {path: 'detail/:id', component: DetailComponent,canActivate: [AuthGuard]},
-      {path: 'links', component: LinksComponent,canActivate: [AuthGuard]},
+      {path: 'auth', component: AuthComponent,pathMatch: 'full'},
+      {path: 'create', component: CreateComponent,canActivateChild: [AuthGuard], pathMatch: 'full'},
+      {path: 'detail/:id', component: DetailComponent,canActivateChild: [AuthGuard], pathMatch: 'full'},
+      {path: 'links', component: LinksComponent,canActivateChild: [AuthGuard], pathMatch: 'full'},
       { path: '**', redirectTo: '/auth' }
     ]},
 

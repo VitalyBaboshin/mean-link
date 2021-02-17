@@ -1,8 +1,8 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, OnInit, Output, ViewChild} from '@angular/core';
 import {HttpService} from "../../../services/http.service";
-import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Link} from "../../../services/interfaces";
-import {Observable} from "rxjs";
+import * as M from 'materialize-css';
+
 
 @Component({
   selector: 'app-links',
@@ -10,19 +10,29 @@ import {Observable} from "rxjs";
   styleUrls: ['./links.component.scss']
 })
 export class LinksComponent implements OnInit{
-  links$: Observable<[Link]>
+  @ViewChild("collaps", {static: true}) firstChild: ElementRef;
+  @Output() linksLocal: Link[];
 
-  constructor(private httpService: HttpService,
-              private router: Router) {
+  removeLink: boolean;
+  constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.links$ = this.httpService.getAllLink();
+    this.httpService.getAllLink().subscribe(links => {
+      this.linksLocal = links;
+    })
+    M.Collapsible.init(this.firstChild.nativeElement);
   }
 
-  open($event, link: string) {
-    // $event.preventDefault();
-    this.router.navigate([`/detail/${link}`])
+
+  remove(_id: string) {
+    this.removeLink = true;
+    this.httpService.deleteLink(_id).subscribe((status) => {
+      this.linksLocal = this.linksLocal.filter(link => link._id !== _id)
+      M.toast({html: status.message});
+      this.removeLink = false;
+    })
   }
+
 
 }

@@ -15,13 +15,21 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/link', require('./routes/link.routes'));
 app.use('/t', require('./routes/redirect.routes'));
 
+
 if (process.env.NODE_ENV === 'production') {
-    app.use('/', express.static(path.join(__dirname, 'client', 'build')));
+    app.use('/', express.static(path.join(__dirname, 'client', 'build', 'client')));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'client', 'index.html'))
     })
 }
+// else {
+//     app.use('/', express.static(path.join(__dirname, 'client', 'dist', 'client')));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'client', 'dist', 'client', 'index.html'))
+//     })
+// }
+
 
 const PORT = config.get('port') || 4400;
 

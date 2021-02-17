@@ -1,0 +1,37 @@
+@media (min-width: 501px) {
+  ul.table-visible {
+    display: none;
+  }
+}
+
+@media (max-width: 770px) {
+  .novisible {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .btn-size{
+    font-size: 0.75rem
+  }
+}
+
+@media (max-width: 500px) {
+
+  table.table-visible {
+    display: none;
+  }
+  ul.table-visible {
+    display: block;
+  }
+
+  .btn-size{
+    width: 45%;
+  }
+  .btn-size + .btn-size {
+    margin-left: 10px;
+  }
+
+  .collapsible-body div {
+    margin-top: 10px;
+  }
+}

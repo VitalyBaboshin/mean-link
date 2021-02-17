@@ -1,0 +1,27 @@
+@media (max-width: 1000px) {
+  .lg{
+    font-size: 2.125rem
+  }
+}
+@media (max-width: 440px) {
+  .card-content {
+    padding-bottom: 0;
+  }
+  .btn-size{
+    font-size: 0.75rem
+  }
+}
+@media (max-width: 360px) {
+  .lg{
+    font-size: 1.625rem
+  }
+}
+@media (max-width: 380px) {
+  .btn-size {
+    width: 100%;
+  }
+  .btn-size + .btn-size{
+
+    margin-top: 10px;
+  }
+}

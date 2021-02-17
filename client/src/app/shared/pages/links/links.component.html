@@ -1,28 +1,52 @@
 <div class="container">
-  <div *ngIf="links$ | async as links; else loading">
-    <table>
+  <div *ngIf="linksLocal; else loading">
+    <div *ngIf="!linksLocal.length"><h5 style="text-align: center; margin-top: 50px">Нет созданных ссылок</h5></div>
+    <table *ngIf="linksLocal.length" class="col l8 m10 s12 table-visible">
       <thead>
       <tr>
         <th>#</th>
         <th>Оригинальная</th>
-        <th>Сокращенная</th>
+        <th class="novisible">Сокращенная</th>
         <th>Открыть</th>
+        <th>Удалить</th>
       </tr>
       </thead>
 
-      <tbody *ngFor="let link of links; let indexOfElement = index">
+      <tbody *ngFor="let link of linksLocal; let indexOfElement = index">
       <tr >
         <td>{{indexOfElement + 1}}</td>
         <td>{{link.from}}</td>
-        <td> {{link.to}}</td>
+        <td class="novisible"> {{link.to}}</td>
         <td>
-          <a href="/detail/{{link._id}}" (click)="open($event, link._id)">Открыть</a>
-          <!--          <Link to={`/detail/${link._id}`}>Открыть</Link>-->
+          <a class="waves-effect blue darken-1 btn btn-size" href="/detail/{{link._id}}">Открыть</a>
         </td>
+        <td> <a class="waves-effect waves-light btn btn-size"
+                (click)="remove(link._id)"
+                [class.disabled]="removeLink"
+                >Удалить</a></td>
       </tr>
       </tbody>
     </table>
   </div>
+
+
+  <ul #collaps class="collapsible table-visible">
+    <li *ngFor="let link of linksLocal">
+      <div class="collapsible-header">
+        {{link.from}}
+    </div>
+    <div class="collapsible-body">
+      <i class="material-icons">{{link.to}}</i>
+      <div>
+        <a class="waves-effect blue darken-1 btn btn-size" href="/detail/{{link._id}}">Открыть</a>
+        <a class="waves-effect waves-light btn btn-size"
+           (click)="remove(link._id)"
+           [class.disabled]="removeLink"
+        >Удалить</a>
+      </div>
+    </div>
+    </li>
+  </ul>
 
 
   <ng-template #loading>
